@@ -45,3 +45,8 @@ def profile(request):
     user_obj = User.objects.get(pk=1)
     posts = Post.objects.filter(author=user_obj)
     return render(request, 'reddit_app/profile.html', {'posts':posts, 'user':user_obj})
+
+def delete_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    post.delete()
+    return redirect("reddit_app:profile") 

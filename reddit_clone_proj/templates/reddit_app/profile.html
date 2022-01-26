@@ -11,7 +11,7 @@
             <p> {{ post.text }} </p>
             <p> {{ post.created_at }} </p>
             <p> {{ post.votes }} </p>
-            <a href="#">Delete Post</a>
+            <a href="{% url 'reddit_app:delete_post' post.id %}"><button>Delete Post</button></a>
             <a href="#">Update Post</a>
             <hr>
         {% endfor %}
