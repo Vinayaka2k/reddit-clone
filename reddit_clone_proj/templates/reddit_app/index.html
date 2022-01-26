@@ -1,1 +1,21 @@
-<html></html>
+<div>
+    {% if posts.count %}
+        {% for post in posts %}
+            <p> {{ post.title }} </p>
+            <p> {{ post.text }} </p>
+            <p> {{ post.created_at }} </p>
+            <p> {{ post.votes }} </p>
+            <p> {{ post.author }} </p>
+            <hr>
+        {% endfor %}
+    {% endif %}
+</div>
+
+<div>
+    <a href="{% url 'reddit_app:index' %}">
+        <h2>New Posts</h2>
+    </a>    
+    <a href="{% url 'reddit_app:trending' %}">        
+        <h2>Trending Posts</h2>
+    </a>
+</div>
