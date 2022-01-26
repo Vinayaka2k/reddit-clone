@@ -12,7 +12,7 @@
             <p> {{ post.created_at }} </p>
             <p> {{ post.votes }} </p>
             <a href="{% url 'reddit_app:delete_post' post.id %}"><button>Delete Post</button></a>
-            <a href="#">Update Post</a>
+            <a href="{% url 'reddit_app:update_post_helper' post.id %}"><button>Update Post</button></a>
             <hr>
         {% endfor %}
     {% else %}

@@ -1,0 +1,9 @@
+
+<div>
+    <form method="POST" action="{% url 'reddit_app:update_post' post.id %}">
+        {% csrf_token %}
+        <input type="text" value="{{post.title}}" name="title"/>
+        <textarea name="text">{{post.text}}</textarea>
+        <button type="submit">Update</button>
+    </form>
+</div>

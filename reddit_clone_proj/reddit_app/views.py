@@ -50,3 +50,14 @@ def delete_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     post.delete()
     return redirect("reddit_app:profile") 
+
+def update_post_helper(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    return render(request, 'reddit_app/update_post.html', {'post':post})
+
+def update_post(request, post_id):
+    if request.method == "POST":
+        title = request.POST["title"]
+        text = request.POST["text"]
+        Post.objects.filter(pk=post_id).update(title=title, text=text)
+    return redirect("reddit_app:profile")
