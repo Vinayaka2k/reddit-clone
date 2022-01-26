@@ -7,5 +7,6 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("create-post/", views.create_post, name="create_post"),
     path("trending/", views.create_post, name="trending"),
-    path("post/<int:post_id>/", views.single_post, name="single_post")
+    path("post/<int:post_id>/", views.single_post, name="single_post"),
+    path("post/<int:post_id>/comment", views.comment, name="comment")
 ]

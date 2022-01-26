@@ -1,4 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+
+import reddit_app
 from .models import Post, Comment
 from django.contrib.auth.models import User
 
@@ -26,7 +28,16 @@ def create_post(request):
 
 def single_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
-    print(post.text)
+    # print(post.text)
     comments = post.comment_set.all()
-    print(comments)
+    # print(comments)
     return render(request, "reddit_app/single_post.html", {'post':post, 'comments':comments})
+
+def comment(request, post_id):
+    if request.method == "POST":
+        comment_text = request.POST["comment_text"]
+        user_obj = User.objects.get(pk=1)
+        post = Post.objects.get(pk=post_id)
+        post.comment_set.create(text=comment_text, post=post, author=user_obj)    
+    return redirect("reddit_app:single_post", post_id=post_id) 
+    
