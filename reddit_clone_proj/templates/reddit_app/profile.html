@@ -1,0 +1,21 @@
+<div>
+    <h2>Welcome, {{user.username}} </h2>
+    <p>This is a history of your posts.</p>
+</div>
+
+<div>
+    <hr>
+    {% if posts.count %}
+        {% for post in posts %}
+            <p> {{ post.title }} </p>
+            <p> {{ post.text }} </p>
+            <p> {{ post.created_at }} </p>
+            <p> {{ post.votes }} </p>
+            <a href="#">Delete Post</a>
+            <a href="#">Update Post</a>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>You dont have any posts yet!</p>
+    {% endif %}
+</div>

@@ -41,3 +41,7 @@ def comment(request, post_id):
         post.comment_set.create(text=comment_text, post=post, author=user_obj)    
     return redirect("reddit_app:single_post", post_id=post_id) 
     
+def profile(request):
+    user_obj = User.objects.get(pk=1)
+    posts = Post.objects.filter(author=user_obj)
+    return render(request, 'reddit_app/profile.html', {'posts':posts, 'user':user_obj})
