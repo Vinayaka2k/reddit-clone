@@ -19,5 +19,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('reddit/', include("reddit_app.urls")),
-    path('user/', include("user_app.urls"))
+    path('user/', include("user_app.urls")),
+    path('api/password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
+
 ]

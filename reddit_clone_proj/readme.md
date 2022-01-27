@@ -15,3 +15,4 @@ DataBase Schema
 -   author : References User, ON DELETE CASCADE
 -   created_at : DateTime, auto_now_add is True
 -   post : References Post, ON DELETE CASCADE
+

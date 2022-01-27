@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth import authenticate, login as sess_login, logout as sess_logout
 from django.contrib.auth.models import User
 from django.db.utils import IntegrityError
+from django.core.mail import send_mail  
+from django.conf import settings
 
 def signup(request):
     context = {}
