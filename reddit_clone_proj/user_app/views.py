@@ -46,9 +46,10 @@ def login(request):
 # def settings(request):
 #     return render(request, "user_app/login.html", {})
 
-# def login(request):
-#     return render(request, "user_app/login.html", {})
-
+def logout(request):
+    sess_logout(request)
+    return redirect("reddit_app:index")
+    
 # def delete(request):
 #     return render(request, "user_app/login.html", {})
 
