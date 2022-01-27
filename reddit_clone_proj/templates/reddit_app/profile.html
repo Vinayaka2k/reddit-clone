@@ -1,3 +1,6 @@
+{% load static %} 
+<link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
 <div>
     <h2>Welcome, {{user.username}} </h2>
     <p>This is a history of your posts.</p>
@@ -5,14 +8,17 @@
 
 <div>
     <hr>
-    {% if posts.count %}
-        {% for post in posts %}
+    {% if posts %}
+        {% for post, vote in posts %}
             <p> {{ post.title }} </p>
             <p> {{ post.text }} </p>
             <p> {{ post.created_at }} </p>
             <p> {{ post.votes }} </p>
             <a href="{% url 'reddit_app:delete_post' post.id %}"><button>Delete Post</button></a>
             <a href="{% url 'reddit_app:update_post_helper' post.id %}"><button>Update Post</button></a>
+            <br>
+            <a href="{% url 'reddit_app:upvote_post' post.id %}" class="{% if vote == True %}upvote{% endif %}" role="button">Upvote</a>
+            <a href="{% url 'reddit_app:downvote_post' post.id %}" class="{% if vote == False %}downvote{% endif %}" role="button">Downvote</a>
             <hr>
         {% endfor %}
     {% else %}

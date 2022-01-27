@@ -12,5 +12,8 @@ urlpatterns = [
     path("profile/", views.profile, name="profile"),
     path("post/<int:post_id>/delete", views.delete_post, name="delete_post"),
     path("post/<int:post_id>/update_helper", views.update_post_helper, name="update_post_helper"),
-    path("post/<int:post_id>/update", views.update_post, name="update_post")
+    path("post/<int:post_id>/update", views.update_post, name="update_post"),
+    path('post/<int:post_id>/upvote', views.upvote_post, name='upvote_post'),
+    path('post/<int:post_id>/downvote', views.downvote_post, name='downvote_post')
+
 ]
