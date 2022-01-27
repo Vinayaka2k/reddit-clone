@@ -12,6 +12,7 @@
     <button>Login</button>
 </form>
 
+<p>Forgot your password? Reseit it <a href="{% url 'user_app:request_reset_password' %}"> here</a></p>
 
 {% if error %}
     <p>{{ error }}</p>

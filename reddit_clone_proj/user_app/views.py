@@ -49,15 +49,23 @@ def login(request):
 def logout(request):
     sess_logout(request)
     return redirect("reddit_app:index")
-    
+
 # def delete(request):
 #     return render(request, "user_app/login.html", {})
 
 # def update_password(request):
 #     return render(request, "user_app/login.html", {})
 
-# def request_reset_password(request):
-#     return render(request, "user_app/login.html", {})
+def request_reset_password(request):
+    context = {}
+    if request.method == "POST":
+        email = request.POST["email"]
+        is_email_valid = User.objects.filter(email=email).exists()
+        if is_email_valid:
+            context = { "message" : "An email with directions to reset your password has been sent to you! "}
+        else:
+            context = { "message" : "This email doesnot exist in the Database" }
+    return render(request, "user_app/request-reset-password.html", context)
 
 # def reset_password(request):
 #     return render(request, "user_app/login.html", {})
