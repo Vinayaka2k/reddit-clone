@@ -2,8 +2,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth import authenticate, login as sess_login, logout as sess_logout
 from django.contrib.auth.models import User
 from django.db.utils import IntegrityError
-from django.core.mail import send_mail  
-from django.conf import settings
+import requests
 
 def signup(request):
     context = {}
@@ -49,6 +48,7 @@ def login(request):
 #     return render(request, "user_app/login.html", {})
 
 def logout(request):
+    # print(User.objects.filter(email="vinuvinayaka2000@gmail.com"))
     sess_logout(request)
     return redirect("reddit_app:index")
 
@@ -64,10 +64,21 @@ def request_reset_password(request):
         email = request.POST["email"]
         is_email_valid = User.objects.filter(email=email).exists()
         if is_email_valid:
-            context = { "message" : "An email with directions to reset your password has been sent to you! "}
+            # context = { "message" : "An email with directions to reset your password has been sent to you! "}
+            requests.post("http://127.0.0.1:8000/api/password_reset/",data={"email":email})
+            return redirect("user_app:reset_password")
         else:
             context = { "message" : "This email doesnot exist in the Database" }
     return render(request, "user_app/request-reset-password.html", context)
 
-# def reset_password(request):
-#     return render(request, "user_app/login.html", {})
+def reset_password(request):
+    if request.method == "POST":
+        token = request.POST["token"]
+        password = request.POST["password"]
+        confirm_password = request.POST["confirm_password"]
+        if password == confirm_password:
+            requests.post("http://127.0.0.1:8000/api/password_reset/confirm/",data={"password":password, "token":token})
+            return redirect("reddit_app:index")
+        else:
+            return render(request, "user_app/reset_password.html", {"error":"Passwords dont match"})
+    return render(request, "user_app/reset_password.html", {})
