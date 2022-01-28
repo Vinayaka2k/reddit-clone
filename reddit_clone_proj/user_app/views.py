@@ -48,7 +48,7 @@ def login(request):
 #     return render(request, "user_app/login.html", {})
 
 def logout(request):
-    # print(User.objects.filter(email="vinuvinayaka2000@gmail.com"))
+    # print(User.objects.all())
     sess_logout(request)
     return redirect("reddit_app:index")
 
@@ -78,7 +78,7 @@ def reset_password(request):
         confirm_password = request.POST["confirm_password"]
         if password == confirm_password:
             requests.post("http://127.0.0.1:8000/api/password_reset/confirm/",data={"password":password, "token":token})
-            return redirect("reddit_app:index")
+            return redirect("user_app:login")
         else:
             return render(request, "user_app/reset_password.html", {"error":"Passwords dont match"})
     return render(request, "user_app/reset_password.html", {})
